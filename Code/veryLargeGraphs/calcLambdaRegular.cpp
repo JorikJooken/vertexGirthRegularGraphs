@@ -22,10 +22,10 @@ vector< vector<int> > graph;
 
 void calcNumberShortestPaths(int u, int v, int* length, int* numPaths)
 {
-    auto it = find(graph[u].begin(), graph[u].end(), v);
+    /*auto it = find(graph[u].begin(), graph[u].end(), v);
     graph[u].erase(it);
     it = find(graph[v].begin(), graph[v].end(), u);
-    graph[v].erase(it);
+    graph[v].erase(it);*/
     //fprintf(stderr,"function called with u and v: %d %d\n",u,v);
     qStart=0;
     qFinish=0;
@@ -41,6 +41,8 @@ void calcNumberShortestPaths(int u, int v, int* length, int* numPaths)
         qStart++;
         for(int neigh : graph[now])
         {
+            if(now==u && neigh==v) continue;
+            if(now==v && neigh==u) continue;
             //fprintf(stderr,"now and neigh: %d %d\n",now,neigh);
             if(distBFS1[neigh]>n) // new
             {
@@ -55,8 +57,8 @@ void calcNumberShortestPaths(int u, int v, int* length, int* numPaths)
             }
         }
     }
-    graph[u].push_back(v);
-    graph[v].push_back(u);
+    /*graph[u].push_back(v);
+    graph[v].push_back(u);*/
     //fprintf(stderr,"Distance between u and v: %d\n",distBFS1[v]);
     (*length)=distBFS1[v];
     (*numPaths)=numberShortestPaths[v];
